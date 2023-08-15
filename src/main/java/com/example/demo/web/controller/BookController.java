@@ -23,7 +23,7 @@ public class BookController {
 //            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
 //            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
-    public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto) {
+    public ResponseEntity<String> addBook(@Valid @RequestBody BookDto bookDto) {
          bookService.save(bookDto);
          return ResponseEntity.ok("Book added successfully");
     }

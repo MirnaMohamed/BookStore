@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
         Response response =  Response.builder().message(exception.getMessage())
                 .status(ErrorCodes.NOTFOUND_ERROR.getStatus()).statusCode(ErrorCodes.NOTFOUND_ERROR.getStatusCode())
                 .build();
-        return  ResponseEntity.status(ErrorCodes.NOTFOUND_ERROR.getStatusCode()).body(response);
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         //return entity
         //404
         //status request level, response level

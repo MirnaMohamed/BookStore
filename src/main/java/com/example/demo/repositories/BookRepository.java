@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 //    @Query("SELECT b FROM Book b")
@@ -12,7 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     //validation input from user inside the object
 
 //    @Query("SELECT b FROM Book b WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', ?1,'%')) ORDER BY b.title desc")
-    Book findByTitle(String title);
+//    Book findByTitle(String title);
 //    @Query("SELECT b FROM Book b WHERE LOWER(b.author) LIKE LOWER(CONCAT('%', ?1,'%')) ORDER BY b.author desc")
     List<Book> findByAuthor(String author);
 
@@ -20,7 +21,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByTitleAndAuthor(String title, String author);
 
 //    @Query("SELECT b FROM Book b WHERE b.title LIKE %?1%")
-    List<Book> findByTitleLike(String title);
+    Optional<Book> findByTitleLike(String title);
 
     @Query("SELECT t FROM Book t WHERE LOWER(t.title) LIKE LOWER(CONCAT('%', ?1,'%'))")
     List<Book> findByTitleLikeCaseInsensitive(String title);

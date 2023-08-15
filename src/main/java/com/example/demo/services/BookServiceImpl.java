@@ -33,10 +33,20 @@ public class BookServiceImpl implements BookService {
         }
         public BookDto findBookByTitle(String title)
         {
-            Book books = bookRepo.findByTitle(title);
-            BookDto bookDto = bookMapper.bookToBookDto(books);
+            Optional<Book> optional = bookRepo.findByTitleLike(title);
+//            BookDto bookDto = bookMapper.bookToBookDto(book);
+            BookDto bookDto;
+            if (optional.isPresent()){
+//                bookDto = optional.get();
+                bookDto = bookMapper.bookToBookDto(optional.get());
+                return bookDto;
+            }
+            else {
+//                throw new BookNotFoundException("book not found");
+                throw new BookNotFoundException(title + " is not found");
+
+            }
 //            books.forEach(book -> bookDtos.add(bookMapper.bookToBookDto(book)));
-            return bookDto;
         }
         public List<Book> getBooksByAuthor(String author)
         {
@@ -64,8 +74,7 @@ public class BookServiceImpl implements BookService {
             }
             else {
 //                throw new BookNotFoundException("book not found");
-                throw new BookNotFoundException(ErrorCodes.NOTFOUND_ERROR.getStatusCode(),
-                        ErrorCodes.NOTFOUND_ERROR.getStatus(), ErrorCodes.NOTFOUND_ERROR.getMessage());
+                throw new BookNotFoundException("Book with id:" + id + " is not found");
 
             }
         }
