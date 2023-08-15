@@ -2,6 +2,7 @@ package com.example.demo.web.controller;
 
 import com.example.demo.dtos.BookDto;
 import com.example.demo.services.BookService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,9 +44,10 @@ public class BookController {
         return bookService.getById(id);
     }
 
-    @PutMapping
-    public ResponseEntity<String> updateProduct(@RequestBody BookDto product) {
-        bookService.update(product);
+    @PutMapping("/id")
+    public ResponseEntity<String> updateProduct(@RequestBody BookDto bookDto, @RequestParam Integer id) {
+        bookDto.setId(id);
+        bookService.update(id, bookDto);
         return ResponseEntity.ok("Book updated");
     }
 

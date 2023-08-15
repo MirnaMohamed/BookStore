@@ -1,11 +1,11 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Book;
+import com.example.demo.models.entities.Book;
 import com.example.demo.dtos.BookDto;
-import com.example.demo.entities.constants.enums.ErrorCodes;
-import com.example.demo.exceptions.BookNotFoundException;
+import com.example.demo.exceptions.NotExistException;
 import com.example.demo.repositories.BookRepository;
 import com.example.demo.mapper.BookMapper;
+import com.example.demo.validations.BookValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,7 @@ public class BookServiceImpl implements BookService {
         private BookRepository bookRepo;
         @Autowired
         private BookMapper bookMapper;
+        BookValidation bookValidation = BookValidation.getBookValidation();
         List<BookDto> bookDtos = new ArrayList<>();
 
         public List<BookDto> getAllBooks()
@@ -43,7 +44,7 @@ public class BookServiceImpl implements BookService {
             }
             else {
 //                throw new BookNotFoundException("book not found");
-                throw new BookNotFoundException(title + " is not found");
+                throw new NotExistException(title + " is not found");
 
             }
 //            books.forEach(book -> bookDtos.add(bookMapper.bookToBookDto(book)));
@@ -55,14 +56,14 @@ public class BookServiceImpl implements BookService {
         }
         public void save(BookDto bookDto)
         {
-
-            Book book = bookMapper.DtoToEntity(bookDto);
+            bookValidation.NameValidation(bookDto.getTitle());
+            Book book = bookMapper.bookDtoToBook(bookDto);
             bookRepo.save(book);
         }
 
 
 
-    public BookDto getById(Integer id) throws BookNotFoundException {
+    public BookDto getById(Integer id) throws NotExistException {
             Optional<Book> optional = bookRepo.findById(id);
             BookDto bookDto;
 //            BookDto bookDto = bookMapper.bookToBookDto(optional.get());
@@ -74,15 +75,18 @@ public class BookServiceImpl implements BookService {
             }
             else {
 //                throw new BookNotFoundException("book not found");
-                throw new BookNotFoundException("Book with id:" + id + " is not found");
+                throw new NotExistException("Book with id:" + id + " is not found");
 
             }
         }
-        public void update(BookDto bookDto)
-        {
-            Book book = bookMapper.DtoToEntity(bookDto);
 
-            bookRepo.save(book);
+        public void update(Integer id, BookDto bookDto)
+        {//ignore id or don't take id from dto
+            Book book = bookMapper.bookDtoToBook(getById(id));
+            Book updatedBook = bookMapper.updateBookFromBookDto(bookDto, book);
+
+//            Book book = bookMapper.DtoToEntity(bookDto);
+            bookRepo.save(updatedBook);
         }
 
         public void deleteViaId(Integer id)

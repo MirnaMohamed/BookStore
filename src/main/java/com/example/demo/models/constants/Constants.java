@@ -1,4 +1,4 @@
-package com.example.demo.entities.constants;
+package com.example.demo.models.constants;
 
 import lombok.Getter;
 

@@ -1,7 +1,8 @@
 package com.example.demo.repositories;
 
-import com.example.demo.entities.Book;
+import com.example.demo.models.entities.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 //    @Query("SELECT b FROM Book b WHERE LOWER(b.author) LIKE LOWER(CONCAT('%', ?1,'%')) ORDER BY b.author desc")
     List<Book> findByAuthor(String author);
 
+//    void updateBookById(Integer id);
 //    @Query("SELECT b FROM Book b WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', ?1,'%')) AND LOWER(b.author) LIKE LOWER(CONCAT('%', ?2,'%'))")
     List<Book> findByTitleAndAuthor(String title, String author);
 

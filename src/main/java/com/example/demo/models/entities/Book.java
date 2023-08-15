@@ -1,8 +1,11 @@
-package com.example.demo.entities;
+package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "book")
@@ -16,7 +19,7 @@ public class Book {
     @NotBlank(message = "Title is mandatory")
     private String title;
     @Column(name = "author")
-    @NotBlank(message = "Author is mandatory")
+//    @NotBlank(message = "Author is mandatory")
     private String author;
     @Column(name = "description")
     private String description;
@@ -24,16 +27,15 @@ public class Book {
     private float price;
     @Column(name = "quantity")
     private int quantity;
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
-    }
+//    @ManyToMany(
+//            fetch = FetchType.LAZY,
+//            mappedBy = "books"
+//    )
+//    private Set<Author> authors = new HashSet<>();
+//
+//    @ManyToMany(
+//            fetch = FetchType.LAZY,
+//            mappedBy = "books"
+//    )
+//    private Set<User> users = new HashSet<>();
 }

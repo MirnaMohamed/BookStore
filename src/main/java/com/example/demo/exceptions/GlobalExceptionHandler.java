@@ -1,22 +1,20 @@
 package com.example.demo.exceptions;
 
-import com.example.demo.entities.constants.enums.ErrorCodes;
+import com.example.demo.models.constants.ErrorCodes;
 import com.example.demo.web.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.sql.SQLException;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = BookNotFoundException.class)
-    public ResponseEntity<Response> notFoundException(BookNotFoundException exception) {
+    @ExceptionHandler(value = NotExistException.class)
+    public ResponseEntity<Response> notFoundException(NotExistException exception) {
         Response response =  Response.builder().message(exception.getMessage())
-                .status(ErrorCodes.NOTFOUND_ERROR.getStatus()).statusCode(ErrorCodes.NOTFOUND_ERROR.getStatusCode())
-                .build();
-        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+                .status(ErrorCodes.BOOK_NOTFOUND_ERROR.getStatus())
+                .statusCode(HttpStatus.NOT_FOUND.value()).status(ErrorCodes.BOOK_NOTFOUND_ERROR.getStatus()).build();
+        return  ResponseEntity.status(response.getStatusCode()).body(response);
         //return entity
         //404
         //status request level, response level
@@ -28,11 +26,11 @@ public class GlobalExceptionHandler {
 //                .message(ErrorCodes.BABREQUEST_ERROR.getMessage()).build();
 //        return  ResponseEntity.internalServerError().body(response);}
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Response> userNotFoundException(UserNotFoundException  exception) {
-        Response response =  Response.builder().statusCode(ErrorCodes.NOTFOUND_ERROR.getStatusCode())
-                .message(ErrorCodes.NOTFOUND_ERROR.getMessage()).build();
-        return  ResponseEntity.status(ErrorCodes.NOTFOUND_ERROR.getStatusCode()).body(response);}
+    @ExceptionHandler(value = NotExistException.class)
+    public ResponseEntity<Response> userNotFoundException(NotExistException exception) {
+        Response response =  Response.builder().statusCode(HttpStatus.NOT_FOUND.value())
+                .message(ErrorCodes.USER_NOTFOUND_ERROR.getMessage()).status(ErrorCodes.USER_NOTFOUND_ERROR.getStatus()).build();
+        return  ResponseEntity.status(response.getStatusCode()).body(response);}
 
 //    //DB connection
 //    @ExceptionHandler(value = SQLException.class)
