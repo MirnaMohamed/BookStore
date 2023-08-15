@@ -6,9 +6,8 @@ import lombok.Getter;
 public enum ErrorCodes {//more specific error
     BOOK_NOTFOUND_ERROR( "Book Not Found", "Book Doesn't exist in database"),
     USER_NOTFOUND_ERROR( "User Not Found", "User Doesn't exist in database"),
-    BADREQUEST_ERROR("Bad Request to Database", "Check your request and try again");
-
-
+    BADREQUEST_ERROR("Bad Request to Database", "Check your request and try again"),
+    INVALIDTITLE_ERROR("Invalid entry value for book title", "Try using letters only");
     private String status;
     private String message;
 

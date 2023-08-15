@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = NotExistException.class)
-    public ResponseEntity<Response> notFoundException(NotExistException exception) {
+    @ExceptionHandler(value = BadEntryException.class)
+    public ResponseEntity<Response> notFoundException(BadEntryException exception) {
         Response response =  Response.builder().message(exception.getMessage())
-                .status(ErrorCodes.BOOK_NOTFOUND_ERROR.getStatus())
-                .statusCode(HttpStatus.NOT_FOUND.value()).status(ErrorCodes.BOOK_NOTFOUND_ERROR.getStatus()).build();
+                .status(ErrorCodes.BADREQUEST_ERROR.getStatus())
+                .statusCode(HttpStatus.BAD_REQUEST.value()).status(ErrorCodes.INVALIDTITLE_ERROR.getStatus()).build();
         return  ResponseEntity.status(response.getStatusCode()).body(response);
         //return entity
         //404
