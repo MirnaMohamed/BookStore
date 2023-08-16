@@ -1,22 +1,19 @@
-package com.example.demo.models.entities;
+package com.example.demo.dtos;
 
-import jakarta.persistence.*;
+import com.example.demo.models.entities.Book;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@Setter
+@Getter
 @NoArgsConstructor
-
-@Entity
-@Table(name = "photo")
-public class Photo {
-    @Id
-    @GeneratedValue
+@AllArgsConstructor
+public class PhotoDto {
     private Integer id;
     private String bitmap;
-    @OneToOne(mappedBy = "photo")
-    private Book book;
 
     public Integer getId() {
         return id;

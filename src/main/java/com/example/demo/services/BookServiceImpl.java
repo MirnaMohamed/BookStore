@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
         }
         public void save(BookDto bookDto)
         {
-            bookValidation.NameValidation(bookDto.getTitle());
+//            bookValidation.NameValidation(bookDto.getTitle());
             Book book = bookMapper.bookDtoToBook(bookDto);
             bookRepo.save(book);
         }

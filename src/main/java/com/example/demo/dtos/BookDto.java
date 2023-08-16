@@ -1,5 +1,9 @@
 package com.example.demo.dtos;
 
+import com.example.demo.models.entities.Photo;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,5 +23,7 @@ public class BookDto {
     private String description;
     private float price;
     private int quantity;
-    //logger
+    private int photo_id;
+//    private PhotoDto photo;
+
 }
