@@ -27,7 +27,7 @@ public class Book {
     private float price;
     @Column(name = "quantity")
     private int quantity;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "photo_id")
     private Photo photo;
 }
