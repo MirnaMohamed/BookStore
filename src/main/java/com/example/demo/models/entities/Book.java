@@ -19,7 +19,7 @@ public class Book {
     @NotBlank(message = "Title is mandatory")
     private String title;
     @Column(name = "author")
-//    @NotBlank(message = "Author is mandatory")
+    @NotBlank(message = "Author is mandatory")
     private String author;
     @Column(name = "description")
     private String description;
@@ -27,15 +27,7 @@ public class Book {
     private float price;
     @Column(name = "quantity")
     private int quantity;
-//    @ManyToMany(
-//            fetch = FetchType.LAZY,
-//            mappedBy = "books"
-//    )
-//    private Set<Author> authors = new HashSet<>();
-//
-//    @ManyToMany(
-//            fetch = FetchType.LAZY,
-//            mappedBy = "books"
-//    )
-//    private Set<User> users = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "photo_id")
+    private Photo photo;
 }
